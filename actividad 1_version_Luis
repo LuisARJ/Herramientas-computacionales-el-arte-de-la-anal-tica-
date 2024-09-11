@@ -1,0 +1,47 @@
+import pandas as pd
+
+file_path = 'C:\wineclustering.csv' 
+data = pd.read_csv(file_path)
+
+# Verificar la cantidad de filas y columnas 
+print(f'Cantidad de filas: {data.shape[0]}')
+print(f'Cantidad de columnas: {data.shape[1]}')
+
+# Verificar los tipos de datos de cada columna
+print("\nTipos de datos por columna:")
+print(data.dtypes)
+
+# Descripcion estadistica para conocer los rangos y cuartiles
+print("\nDescripcion estadistica de las variables:")
+print(data.describe())
+
+# 5 preguntas sobre los datos
+# Pregunta 1: ¿Cual es el promedio de alcohol en el vino?
+alcohol_mean = data['Alcohol'].mean()
+print(f"\nPregunta 1: El promedio de alcohol en el vino es {alcohol_mean:.2f}")
+
+# Pregunta 2: ¿Cual es la cantidad minima de magnesio encontrada en la muestra?
+magnesium_min = data['magnesio'].min()
+print(f"Pregunta 2: La cantidad minima de magnesio es {magnesium_min}")
+
+# Pregunta 3: ¿Que porcentaje de vinos tiene un contenido de ceniza superior al valor promedio?
+ceniza_mean = data['Ceniza'].mean()
+percent_above_mean_ceniza = (data[data['Ceniza'] > ceniza_mean].shape[0] / data.shape[0]) * 100
+print(f"Pregunta 3: El porcentaje de vinos con ceniza superior al promedio es {percent_above_mean_ceniza:.2f}%")
+
+# Pregunta 4: ¿Cual es la mediana del tono en los vinos?
+tono_median = data['Tono'].median()
+print(f"Pregunta 4: La mediana del tono en los vinos es {tono_median}")
+
+# Pregunta 5: ¿Cual es el valor maximo de la intensidad del color?
+intensity_max = data['Intensidad del color'].max()
+print(f"Pregunta 5: El valor maximo de la intensidad del color es {intensity_max}")
+
+# Calculo de media, mediana y desviacion estandar de las variables
+print("\nMedia, Mediana y Desviacion Estandar de cada variable:")
+for column in data.columns:
+    print(f"\n{column}: Media = {data[column].mean():.2f}, Mediana = {data[column].median():.2f}, Desviacion Estandar = {data[column].std():.2f} " )
+
+# Conclusion sobre si los datos son adecuados para clustering
+print("\nConclusion sobre clustering:")
+print("Dado que la mayoria de las variables son numericas y presentan variabilidad significativa en sus valores (basado en desviaciones estandar no cercanas a 0), los datos parecen adecuados para aplicar tecnicas de clustering.")
